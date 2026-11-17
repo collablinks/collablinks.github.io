@@ -10,15 +10,15 @@
 var MY_LINKS = {
 
   // ----- Platform buttons (the 4 glass icons) -----
-  twitch:     "https://www.twitch.tv/YOUR-HANDLE",
-  youtube:    "https://www.youtube.com/@YOUR-HANDLE",
-  tiktok:     "https://www.tiktok.com/@YOUR-HANDLE",
-  kick:       "https://kick.com/YOUR-HANDLE",
+  twitch:     "https://www.twitch.tv/real_jsn",
+  youtube:    "https://www.youtube.com/@real_jsn",
+  tiktok:     "https://www.tiktok.com/@real.jsn",
+  kick:       "https://kick.com/real-jsn",
 
   // ----- Trading buttons -----
-  blackCrown: "https://www.blackcrownmarkets.com/",                         // "Open" button
+  blackCrown: "https://register.blackcrownmarkets.com/register?ibid=639373",                         // "Open" button
   rolex:      "https://www.blackcrownmarkets.com/win-a-rolex?code=RXWVET",  // "Enter" button
-  festx:      "https://www.tradewithfestx.com/",                            // "Trade" button
+  festx:      "https://www.tradewithfestx.com/app/account/sign-up?ref=jas639373",                            // "Trade" button
 
 };
 
