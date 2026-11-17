@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Charts by day. Streams by night.</title>
+<meta name="description" content="Watch me on Twitch, YouTube, TikTok and Kick, plus my trading links.">
+<meta name="theme-color" content="#1A0B3D">
+
+<!-- Link preview for WhatsApp, Instagram, X etc. Replace YOUR-GITHUB-USERNAME once your GitHub account exists. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Charts by day. Streams by night.">
+<meta property="og:description" content="Watch me on Twitch, YouTube, TikTok and Kick, plus my trading links.">
+<!-- ✏️ SHARE PICTURE: replace YOUR-GITHUB-USERNAME below with your GitHub username (only this one line) -->
+<meta property="og:image" content="https://YOUR-GITHUB-USERNAME.github.io/assets/share-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; background: #160A2E; }
+  body {
+    color: #FFFFFF;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  a:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 4px; border-radius: 18px; }
+
+  /* ---------- Background scene ---------- */
+  .page {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: max(40px, env(safe-area-inset-top)) 20px max(40px, env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, #1A0B3D 0%, #2A0F4F 50%, #160A2E 100%);
+  }
+  .glow { position: absolute; border-radius: 50%; pointer-events: none; animation: drift 18s ease-in-out infinite; }
+  .glow-pink   { top: -140px; right: -160px; width: 460px; height: 460px; background: radial-gradient(circle, rgba(255,79,160,0.6) 0%, rgba(255,79,160,0) 70%); animation-duration: 16s; }
+  .glow-orange { bottom: 60px; left: -180px; width: 460px; height: 460px; background: radial-gradient(circle, rgba(255,140,66,0.45) 0%, rgba(255,140,66,0) 70%); animation-duration: 21s; animation-direction: reverse; }
+  .glow-blue   { top: 30%; left: 50%; width: 420px; height: 420px; margin-left: -210px; background: radial-gradient(circle, rgba(63,200,255,0.24) 0%, rgba(63,200,255,0) 70%); animation-duration: 26s; }
+  .horizon {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 55vh; pointer-events: none;
+    background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(255,128,92,0.42) 0%, rgba(214,64,128,0.22) 45%, rgba(214,64,128,0) 75%);
+  }
+  .palm { position: absolute; bottom: 0; width: auto; pointer-events: none; user-select: none; }
+  .palm-far-l  { left: 0;  height: min(58vh, 560px); opacity: 0.85; transform: translateX(-28%); }
+  .palm-far-r  { right: 0; height: min(52vh, 500px); opacity: 0.9;  transform: translateX(26%); }
+  .palm-near-l { left: 0;  height: min(92vh, 860px); transform: translateX(-46%); }
+  .palm-near-r { right: 0; height: min(100vh, 940px); transform: translateX(42%); }
+
+  /* ---------- Content ---------- */
+  main { position: relative; width: 100%; max-width: 440px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+  h1 {
+    margin: 0; text-align: center;
+    font-size: clamp(28px, 8.2vw, 44px); font-weight: 800; line-height: 1.05; letter-spacing: -0.035em;
+    background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.72) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 4px 18px rgba(255,79,160,0.5));
+  }
+
+  /* App-style icons */
+  .apps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .app { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .float { display: inline-flex; animation: floaty 4.5s ease-in-out infinite; }
+  .tile {
+    position: relative; overflow: hidden; width: 68px; height: 68px; border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.55);
+    background: linear-gradient(150deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.16) 100%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%); backdrop-filter: blur(16px) saturate(180%);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s ease;
+  }
+  .app:hover .tile { transform: translateY(-3px) scale(1.04); }
+  .app:active .tile { transform: scale(0.95); }
+  .tile .soft { position: absolute; left: 9px; top: 11px; width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 70%); }
+  .tile img { position: relative; width: auto; }
+  .gloss {
+    position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.08) 34%, rgba(255,255,255,0) 52%, rgba(255,255,255,0) 78%, rgba(255,255,255,0.10) 100%);
+    box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.85), inset 0 -2px 6px rgba(255,255,255,0.2);
+  }
+  .shine {
+    position: absolute; left: 4px; right: 4px; top: 2px; height: 40%; pointer-events: none;
+    border-radius: 15px 15px 50% 50% / 15px 15px 28% 28%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0) 100%);
+  }
+  .app-label { font-size: 13px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+
+  /* Trading links panel */
+  .panel {
+    border-radius: 28px; padding: 4px 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.07) 45%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.14) 100%);
+    -webkit-backdrop-filter: blur(26px) saturate(180%); backdrop-filter: blur(26px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.32);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.12), 0 14px 34px rgba(0,0,0,0.3);
+  }
+  .panel h2 { margin: 0; padding: 12px 18px 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.75); }
+  .row {
+    display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 10px 18px;
+    border-top: 1px solid rgba(255,255,255,0.16); transition: background 0.2s ease;
+  }
+  .row:hover { background: rgba(255,255,255,0.06); }
+  .row:last-child { border-radius: 0 0 24px 24px; }
+  .row:focus-visible { outline-offset: -4px; border-radius: 16px; }
+  .icon {
+    position: relative; overflow: hidden; width: 48px; height: 48px; flex-shrink: 0; border-radius: 13px;
+    border: 1px solid rgba(255,255,255,0.55);
+    background: linear-gradient(150deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.16) 100%);
+    box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.85), inset 0 -2px 6px rgba(255,255,255,0.18), 0 6px 14px rgba(0,0,0,0.28);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icon .shine { left: 3px; right: 3px; border-radius: 11px 11px 50% 50% / 11px 11px 28% 28%; background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); }
+  .icon-purple .fill { position: absolute; inset: 0; background: linear-gradient(160deg, #9F7AEA 0%, #7C3AED 48%, #4C1D95 100%); }
+  .icon-gold .fill { position: absolute; left: 4px; top: 6px; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, rgba(245,196,81,0.55) 0%, rgba(245,196,81,0) 72%); }
+  .icon img { position: relative; }
+  .icon .cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .text { display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0; }
+  .title { font-size: 16px; font-weight: 600; }
+  .sub { font-size: 13px; color: rgba(255,255,255,0.75); }
+  .pill {
+    display: inline-flex; align-items: center; justify-content: center; min-width: 72px; min-height: 32px; padding: 0 14px;
+    border-radius: 999px; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); font-weight: 700; font-size: 14px; flex-shrink: 0;
+  }
+  .pill-gold { background: linear-gradient(180deg, #FFE08A 0%, #F2BC3E 100%); border-color: rgba(255,255,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); color: #2A1A00; }
+
+  .note { margin: -12px 6px 0; text-align: center; font-size: 12.5px; line-height: 1.5; color: rgba(255,255,255,0.75); }
+
+  @keyframes drift { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(-36px,28px) scale(1.12); } 100% { transform: translate(0,0) scale(1); } }
+  @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Background: drifting dusk glows, sunset horizon and palm trees -->
+  <div class="glow glow-pink" aria-hidden="true"></div>
+  <div class="glow glow-orange" aria-hidden="true"></div>
+  <div class="glow glow-blue" aria-hidden="true"></div>
+  <div class="horizon" aria-hidden="true"></div>
+  <img class="palm palm-far-l" src="assets/palm-far-1.webp" alt="" aria-hidden="true">
+  <img class="palm palm-far-r" src="assets/palm-far-2.webp" alt="" aria-hidden="true">
+  <img class="palm palm-near-l" src="assets/palm-left.webp" alt="" aria-hidden="true">
+  <img class="palm palm-near-r" src="assets/palm-right.webp" alt="" aria-hidden="true">
+
+  <main>
+    <h1>Charts by day.<br>Streams by night.</h1>
+
+    <!-- ===== Button links are set in links.js — edit them there, not here ===== -->
+    <nav class="apps" aria-label="My platforms">
+      <a class="app" href="https://www.twitch.tv/YOUR-HANDLE" rel="me" data-link="twitch">
+        <span class="float"><span class="tile" aria-hidden="true"><span class="soft"></span><img src="assets/twitch.png" alt="" style="height: 38px"><span class="gloss"></span><span class="shine"></span></span></span>
+        <span class="app-label">Twitch</span>
+      </a>
+      <a class="app" href="https://www.youtube.com/@YOUR-HANDLE" rel="me" data-link="youtube">
+        <span class="float"><span class="tile" aria-hidden="true"><span class="soft"></span><img src="assets/youtube.png" alt="" style="width: 44px; height: auto"><span class="gloss"></span><span class="shine"></span></span></span>
+        <span class="app-label">YouTube</span>
+      </a>
+      <a class="app" href="https://www.tiktok.com/@YOUR-HANDLE" rel="me" data-link="tiktok">
+        <span class="float"><span class="tile" aria-hidden="true"><span class="soft"></span><img src="assets/tiktok.png" alt="" style="height: 41px"><span class="gloss"></span><span class="shine"></span></span></span>
+        <span class="app-label">TikTok</span>
+      </a>
+      <a class="app" href="https://kick.com/YOUR-HANDLE" rel="me" data-link="kick">
+        <span class="float"><span class="tile" aria-hidden="true"><span class="soft"></span><img src="assets/kick.png" alt="" style="height: 36px"><span class="gloss"></span><span class="shine"></span></span></span>
+        <span class="app-label">Kick</span>
+      </a>
+    </nav>
+
+    <!-- ===== YOUR TRADING LINKS ===== -->
+    <section class="panel" aria-labelledby="trading-title">
+      <h2 id="trading-title">My trading links</h2>
+
+      <a class="row" href="https://www.blackcrownmarkets.com/" rel="sponsored noopener" data-link="blackCrown">
+        <span class="icon icon-purple" aria-hidden="true"><span class="fill"></span><img src="assets/black-crown.svg" alt="" style="width: 30px; height: auto"><span class="gloss" style="border-radius: 12px"></span><span class="shine"></span></span>
+        <span class="text"><span class="title">Black Crown Markets</span><span class="sub">Open an account</span></span>
+        <span class="pill">Open</span>
+      </a>
+
+      <a class="row" href="https://www.blackcrownmarkets.com/win-a-rolex?code=RXWVET" rel="sponsored noopener" data-link="rolex">
+        <span class="icon icon-gold" aria-hidden="true"><span class="fill"></span><img src="assets/rolex-datejust.webp" alt="" style="width: 44px; height: 44px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.35))"><span class="gloss" style="border-radius: 12px"></span><span class="shine"></span></span>
+        <span class="text"><span class="title">Rolex competition</span><span class="sub">By Black Crown Markets</span></span>
+        <span class="pill pill-gold">Enter</span>
+      </a>
+
+      <a class="row" href="https://www.tradewithfestx.com/" rel="sponsored noopener" data-link="festx">
+        <span class="icon" aria-hidden="true"><img class="cover" src="assets/festx.png" alt=""><span class="gloss" style="border-radius: 12px"></span><span class="shine"></span></span>
+        <span class="text"><span class="title">FestX</span><span class="sub">Start trading with FestX</span></span>
+        <span class="pill">Trade</span>
+      </a>
+    </section>
+
+    <p class="note">Affiliate links. Trading involves risk. Nothing here is financial advice.</p>
+  </main>
+</div>
+<script src="links.js"></script>
+</body>
+</html>
